@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { LayoutComponent } from 'app/layout/layout.component';

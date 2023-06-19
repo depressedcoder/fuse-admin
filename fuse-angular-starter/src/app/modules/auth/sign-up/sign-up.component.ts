@@ -44,11 +44,19 @@ export class AuthSignUpComponent implements OnInit
     {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                name      : ['', Validators.required],
+                firstname : ['', Validators.required],
+                lastname  : ['', Validators.required],
+                username  : ['', Validators.required],
                 email     : ['', [Validators.required, Validators.email]],
                 password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue]
+                confirmPassword: ['', Validators.required],
+                phoneNumber: ['', [Validators.required, Validators.pattern(/^(?:\+88|01)?(?:\d{11}|\d{13})$/)]],
+                //company   : [''],
+                agreements: ['', Validators.requiredTrue],
+                roles: ['Administrator', Validators.required]
+            },
+            {
+                validators: this.passwordsMatchValidator
             }
         );
     }
@@ -62,9 +70,11 @@ export class AuthSignUpComponent implements OnInit
      */
     signUp(): void
     {
+        console.log("signup");
         // Do nothing if the form is invalid
         if ( this.signUpForm.invalid )
         {
+            console.log("invalid");
             return;
         }
 
@@ -100,5 +110,19 @@ export class AuthSignUpComponent implements OnInit
                     this.showAlert = true;
                 }
             );
+    }
+
+    // Custom validator for checking if passwords match
+    passwordsMatchValidator(form: FormGroup) {
+        const password = form.get('password')?.value;
+        const confirmPassword = form.get('confirmPassword')?.value;
+
+        // if they are the same, return null (i.e., no error)
+        if (password === confirmPassword) {
+            return null;
+        } else {
+            // if they are different, return an error
+            return { noMatch: true };
+        }
     }
 }

@@ -32,15 +32,39 @@
                 class="mt-8"
                 [formGroup]="signUpForm">
 
-                <!-- Name field -->
+                <!-- First Name field -->
                 <mat-form-field class="w-full">
-                    <mat-label>Full name</mat-label>
+                    <mat-label>First name</mat-label>
                     <input
-                        id="name"
+                        id="firstname"
                         matInput
-                        [formControlName]="'name'">
-                    <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                        Full name is required
+                        [formControlName]="'firstname'">
+                    <mat-error *ngIf="signUpForm.get('firstname').hasError('required')">
+                        First name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Last Name field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Last name</mat-label>
+                    <input
+                        id="lastname"
+                        matInput
+                        [formControlName]="'lastname'">
+                    <mat-error *ngIf="signUpForm.get('lastname').hasError('required')">
+                        Last name is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- User Name field -->
+                <mat-form-field class="w-full">
+                    <mat-label>User name</mat-label>
+                    <input
+                        id="username"
+                        matInput
+                        [formControlName]="'username'">
+                    <mat-error *ngIf="signUpForm.get('username').hasError('required')">
+                        User name is required
                     </mat-error>
                 </mat-form-field>
 
@@ -87,14 +111,65 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- Company field -->
+                <!-- Confirm Password field -->
                 <mat-form-field class="w-full">
+                    <mat-label>Confirm Password</mat-label>
+                    <input
+                        id="confirmPassword"
+                        matInput
+                        type="password"
+                        [formControlName]="'confirmPassword'"
+                        #confirmPasswordField>
+                    <button
+                        mat-icon-button
+                        type="button"
+                        (click)="confirmPasswordField.type === 'password' ? confirmPasswordField.type = 'text' : confirmPasswordField.type = 'password'"
+                        matSuffix>
+                        <mat-icon
+                            class="icon-size-5"
+                            *ngIf="confirmPasswordField.type === 'password'"
+                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        <mat-icon
+                            class="icon-size-5"
+                            *ngIf="confirmPasswordField.type === 'text'"
+                            [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                    </button>
+                    <mat-error *ngIf="signUpForm.hasError('noMatch', 'confirmPassword')">
+                        Passwords do not match
+                    </mat-error>
+                </mat-form-field>                
+
+                <!-- Company field -->
+                <!-- <mat-form-field class="w-full">
                     <mat-label>Company</mat-label>
                     <input
                         id="company-confirm"
                         matInput
                         [formControlName]="'company'">
+                </mat-form-field> -->
+
+                <!-- phoneNumber field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Phone Number</mat-label>
+                    <input
+                        id="phoneNumber"
+                        matInput
+                        type="text"
+                        [formControlName]="'phoneNumber'"
+                        #phoneNumberField>
+                    <mat-error *ngIf="signUpForm.get('phoneNumber').hasError('pattern')">
+                        Please enter a valid Bangladeshi phone number
+                    </mat-error>
                 </mat-form-field>
+
+                <!-- Roles field -->
+                <!-- <mat-form-field class="w-full">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="roles">
+                        <mat-option value="Administrator">Administrator</mat-option>
+                        <mat-option value="Manager">Manager</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
 
                 <!-- ToS and PP -->
                 <div class="inline-flex items-end w-full mt-1.5">
